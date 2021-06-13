@@ -120,6 +120,19 @@ function preferIPV4(){
 
 }
 
+function installWarp(){
+    echo "将使用missuo的CloudflareWarp脚本，脚本地址详见https://github.com/missuo/CloudflareWarp"
+    bash <(wget -O warp.sh https://cdn.jsdelivr.net/gh/missuo/CloudflareWarp/warp.sh && bash warp.sh)
+    # wget -O warp.sh https://cdn.jsdelivr.net/gh/missuo/CloudflareWarp/warp.sh && bash warp.sh
+}
+
+function updatekernel(){
+    echo "如果你的内核没有升级至5.0以上，warp将安装失败，故建议先升级内核至5.0以上"
+    echo "按1 选择安装BBR原本内核即可升级至最新内核"
+    bash <(wget -O tcp.sh "https://git.io/coolspeeda" && chmod +x tcp.sh && ./tcp.sh)
+}
+
+
 function start_menu(){
     clear
 
@@ -135,19 +148,27 @@ function start_menu(){
     curl ip.p3terx.com
     echo
     green " 上面信息显示 如果是IPv4地址 则VPS服务器为 IPv4优先访问. 如果是IPv6地址则为 IPv6优先访问 "   
-    green " ************************************************ "
+    echo " ************************************************ "
 
     echo
-    green " 10. 设置 VPS服务器 IPv4 还是 IPv6 网络优先访问"
     echo
-    
+    green " 1. 升级内核至5.0以上"
+    green " 2. 安装warp"
+    green " 3. 设置 VPS服务器 IPv4 还是 IPv6 网络优先访问"
     echo
     green " =================================================="
     green " 0. 退出脚本"
     echo
     read -p "请输入数字:" menuNumberInput
     case "$menuNumberInput" in
-        10 )
+        1 )updatekernel
+        ;;
+        
+        2 )
+           installWarp
+        ;;
+        
+        3 )
            preferIPV4 "redo"
         ;;
 
