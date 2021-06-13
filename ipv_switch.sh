@@ -130,21 +130,18 @@ function start_menu(){
     showLinuxKernelInfoNoDisplay
 
     green " =================================================="
-    green " Linux 内核 一键安装脚本 | 2021-04-17 | By jinwyp | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
-    green " Linux 内核 4.9 以上都支持开启BBR, 如要开启BBR Plus 则需要安装支持BBR Plus的内核 "
+    green " 魔改自 jinwyp 大佬的 Linux 内核 一键安装脚本 | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
+    green " 原脚本详见 https://github.com/jinwyp/one_click_script"
+    green " 本脚本旨在为你的vps服务器设置优先使用ipv4或ipv6访问网络 "
     red " *在任何生产环境中请谨慎使用此脚本, 升级内核有风险, 请做好备份！在某些VPS会导致无法启动! "
     green " =================================================="
-    if [[ -z ${osKernelBBRStatus} ]]; then
-        echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Red_font_prefix}未安装 BBR 或 BBR Plus ${Font_color_suffix} 加速内核, 请先安装4.9以上内核 "
-    else
-        if [ ${systemBBRRunningStatus} = "no" ]; then
-            echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Red_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
-        else
-            echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Green_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
-        fi
-        
-    fi  
-    echo -e " 当前拥塞控制算法: ${Green_font_prefix}${net_congestion_control}${Font_color_suffix}    ECN: ${Green_font_prefix}${systemECNStatusText}${Font_color_suffix}   当前队列算法: ${Green_font_prefix}${net_qdisc}${Font_color_suffix} "
+    echo
+    yellow " 检测本机 IPv4 或 IPv6 访问网络优先级测试, 命令: curl ip.p3terx.com " 
+    echo  
+    curl ip.p3terx.com
+    echo
+    green " 上面信息显示 如果是IPv4地址 则VPS服务器为 IPv4优先访问. 如果是IPv6地址则为 IPv6优先访问 "   
+    green " ================================================== "
 
     echo
     green " 10. 设置 VPS服务器 IPv4 还是 IPv6 网络优先访问"
