@@ -76,8 +76,8 @@ function preferIPV4(){
         green " ================================================== "
         yellow " 请为服务器设置 IPv4 还是 IPv6 优先访问: "
         echo
-        green " 1 优先 IPv4 访问网络 (用于 给只有 IPv6 的 VPS主机添加 IPv4 网络支持)"
-        green " 2 优先 IPv6 访问网络 (用于 解锁 Netflix 限制 和避免弹出 Google reCAPTCHA 人机验证)"
+        green " 1 优先 IPv4 访问网络 (用于 给只有 IPv6 的 VPS主机添加 IPv4 网络支持，请保证你的服务器具备IPv4地址)"
+        green " 2 优先 IPv6 访问网络 (用于 解锁 Netflix 限制 和避免弹出 Google reCAPTCHA 人机验证，请保证你的服务器具备IPv4地址)"
         green " 3 删除 IPv4 或 IPv6 优先访问的设置, 还原为系统默认配置"
         echo
         red " 注意: 选2后 优先使用 IPv6 访问网络 可能造成无法访问某些不支持IPv6的网站! "
@@ -122,12 +122,6 @@ function preferIPV4(){
 
 function start_menu(){
     clear
-    
-    if [[ $1 == "first" ]] ; then
-        getLinuxOSRelease
-        installSoftDownload
-    fi
-    showLinuxKernelInfoNoDisplay
 
     green " =================================================="
     green " 魔改自 jinwyp 大佬的 Linux 内核 一键安装脚本 | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
@@ -141,7 +135,7 @@ function start_menu(){
     curl ip.p3terx.com
     echo
     green " 上面信息显示 如果是IPv4地址 则VPS服务器为 IPv4优先访问. 如果是IPv6地址则为 IPv6优先访问 "   
-    green " ================================================== "
+    green " ************************************************ "
 
     echo
     green " 10. 设置 VPS服务器 IPv4 还是 IPv6 网络优先访问"
