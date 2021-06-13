@@ -119,3 +119,58 @@ function preferIPV4(){
     echo
 
 }
+
+function start_menu(){
+    clear
+    
+    if [[ $1 == "first" ]] ; then
+        getLinuxOSRelease
+        installSoftDownload
+    fi
+    showLinuxKernelInfoNoDisplay
+
+    green " =================================================="
+    green " Linux 内核 一键安装脚本 | 2021-04-17 | By jinwyp | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
+    green " Linux 内核 4.9 以上都支持开启BBR, 如要开启BBR Plus 则需要安装支持BBR Plus的内核 "
+    red " *在任何生产环境中请谨慎使用此脚本, 升级内核有风险, 请做好备份！在某些VPS会导致无法启动! "
+    green " =================================================="
+    if [[ -z ${osKernelBBRStatus} ]]; then
+        echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Red_font_prefix}未安装 BBR 或 BBR Plus ${Font_color_suffix} 加速内核, 请先安装4.9以上内核 "
+    else
+        if [ ${systemBBRRunningStatus} = "no" ]; then
+            echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Red_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
+        else
+            echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Green_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
+        fi
+        
+    fi  
+    echo -e " 当前拥塞控制算法: ${Green_font_prefix}${net_congestion_control}${Font_color_suffix}    ECN: ${Green_font_prefix}${systemECNStatusText}${Font_color_suffix}   当前队列算法: ${Green_font_prefix}${net_qdisc}${Font_color_suffix} "
+
+    echo
+    green " 10. 设置 VPS服务器 IPv4 还是 IPv6 网络优先访问"
+    echo
+    
+    echo
+    green " =================================================="
+    green " 0. 退出脚本"
+    echo
+    read -p "请输入数字:" menuNumberInput
+    case "$menuNumberInput" in
+        10 )
+           preferIPV4 "redo"
+        ;;
+
+        0 )
+            exit 1
+        ;;
+        * )
+            clear
+            red "请输入正确数字 !"
+            sleep 2s
+            start_menu
+        ;;
+    esac
+}
+
+
+start_menu "first"
