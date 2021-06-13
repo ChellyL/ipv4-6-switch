@@ -190,6 +190,37 @@ virt_check(){
 	fi
 }
 
+function showLinuxKernelInfo(){
+    
+    # https://stackoverflow.com/questions/8654051/how-to-compare-two-floating-point-numbers-in-bash
+    # https://stackoverflow.com/questions/229551/how-to-check-if-a-string-contains-a-substring-in-bash
+
+    isKernelSupportBBRVersion="4.9"
+
+    green " =================================================="
+    green " 状态显示--当前Linux 内核版本: ${osKernelVersionShort} , $(uname -r) "
+
+    if versionCompareWithOp "${isKernelSupportBBRVersion}" "${osKernelVersionShort}" ">"; then
+        green "           当前系统内核低于4.9, 不支持开启 BBR "   
+    else
+        green "           当前系统内核高于4.9, 支持开启 BBR, ${systemBBRRunningStatusText}"
+    fi
+
+    if [[ ${osKernelVersionFull} == *xanmod* ]]; then
+        green "           当前系统内核已支持开启 BBR2, ${systemBBRRunningStatusText}"
+    else
+        green "           当前系统内核不支持开启 BBR2"
+    fi
+
+    if [[ ${osKernelVersionFull} == *bbrplus* ]]; then
+        green "           当前系统内核已支持开启 BBR Plus, ${systemBBRRunningStatusText}"
+    else
+        green "           当前系统内核不支持开启 BBR Plus"
+    fi
+
+    green " =================================================="
+    echo
+}
 
 
 
@@ -280,7 +311,6 @@ function start_menu(){
     
     if [[ $1 == "first" ]] ; then
         getLinuxOSRelease
-        installSoftDownload
     fi
     showLinuxKernelInfoNoDisplay
 
@@ -291,19 +321,17 @@ function start_menu(){
     green " 本脚本旨在为你的vps服务器设置优先使用ipv4或ipv6访问网络 "
     red " *在任何生产环境中请谨慎使用此脚本, 升级内核有风险, 请做好备份！在某些VPS会导致无法启动! "
     green " =================================================="
-     if [[ -z ${osKernelBBRStatus} ]]; then
-        echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Red_font_prefix}未安装 BBR 或 BBR Plus ${Font_color_suffix} 加速内核, 请先安装4.9以上内核 "
+     
+	 if [[ -z ${osKernelBBRStatus} ]]; then
+        echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Red_font_prefix}未安装 BBR 或 BBR Plus ${Font_color_suffix} 加速内核 "
     else
         if [ ${systemBBRRunningStatus} = "no" ]; then
             echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Red_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
         else
             echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Green_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
         fi
-        
-		
-    fi  
-    echo -e " 当前拥塞控制算法: ${Green_font_prefix}${net_congestion_control}${Font_color_suffix}    ECN: ${Green_font_prefix}${systemECNStatusText}${Font_color_suffix}   当前队列算法: ${Green_font_prefix}${net_qdisc}${Font_color_suffix} "
-
+    green " =================================================="
+	echo  
     echo
     yellow " 检测本机 IPv4 " 
     echo  
