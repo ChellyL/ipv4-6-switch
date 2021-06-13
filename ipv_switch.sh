@@ -1,3 +1,61 @@
+export LC_ALL=C
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    sudoCmd="sudo"
+else
+    sudoCmd=""
+fi
+
+uninstall() {
+    ${sudoCmd} $(which rm) -rf $1
+    printf "File or Folder Deleted: %s\n" $1
+}
+
+
+# fonts color
+red(){
+    echo -e "\033[31m\033[01m$1\033[0m"
+}
+green(){
+    echo -e "\033[32m\033[01m$1\033[0m"
+}
+yellow(){
+    echo -e "\033[33m\033[01m$1\033[0m"
+}
+blue(){
+    echo -e "\033[34m\033[01m$1\033[0m"
+}
+bold(){
+    echo -e "\033[1m\033[01m$1\033[0m"
+}
+
+Green_font_prefix="\033[32m" 
+Red_font_prefix="\033[31m" 
+Green_background_prefix="\033[42;37m" 
+Red_background_prefix="\033[41;37m" 
+Font_color_suffix="\033[0m"
+
+
+
+osInfo=""
+osRelease=""
+osReleaseVersion=""
+osReleaseVersionNo=""
+osReleaseVersionCodeName="CodeName"
+osSystemPackage=""
+osSystemMdPath=""
+osSystemShell="bash"
+
+osKernelVersionFull=$(uname -r)
+osKernelVersionBackup=$(uname -r | awk -F "-" '{print $1}')
+osKernelVersionShort=$(uname -r | cut -d- -f1 | awk -F "." '{print $1"."$2}')
+osKernelBBRStatus=""
+systemBBRRunningStatus="no"
+systemBBRRunningStatusText=""
+
+
 function preferIPV4(){
 
     if [[ -f "/etc/gai.conf" ]]; then
