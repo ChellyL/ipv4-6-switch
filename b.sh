@@ -190,7 +190,81 @@ virt_check(){
 	fi
 }
 
+function showLinuxKernelInfoNoDisplay(){
 
+    isKernelSupportBBRVersion="4.9"
+
+    if versionCompareWithOp "${isKernelSupportBBRVersion}" "${osKernelVersionShort}" ">"; then
+        echo
+    else 
+        osKernelBBRStatus="BBR"
+    fi
+
+    if [[ ${osKernelVersionFull} == *bbrplus* ]]; then
+        osKernelBBRStatus="BBR Plus"
+    elif [[ ${osKernelVersionFull} == *xanmod* ]]; then
+        osKernelBBRStatus="BBR 和 BBR2"
+    fi
+
+	net_congestion_control=`cat /proc/sys/net/ipv4/tcp_congestion_control | awk '{print $1}'`
+	net_qdisc=`cat /proc/sys/net/core/default_qdisc | awk '{print $1}'`
+	net_ecn=`cat /proc/sys/net/ipv4/tcp_ecn | awk '{print $1}'`
+
+    if [[ ${osKernelVersionBackup} == *4.14.129* ]]; then
+        # isBBREnabled=$(grep "net.ipv4.tcp_congestion_control" /etc/sysctl.conf | awk -F "=" '{print $2}')
+        # isBBREnabled=$(sysctl net.ipv4.tcp_available_congestion_control | awk -F "=" '{print $2}')
+
+        isBBRTcpEnabled=$(lsmod | grep "bbr" | awk '{print $1}')
+        isBBRPlusTcpEnabled=$(lsmod | grep "bbrplus" | awk '{print $1}')
+        isBBR2TcpEnabled=$(lsmod | grep "bbr2" | awk '{print $1}')
+    else
+        isBBRTcpEnabled=$(sysctl net.ipv4.tcp_congestion_control | grep "bbr" | awk -F "=" '{print $2}' | awk '{$1=$1;print}')
+        isBBRPlusTcpEnabled=$(sysctl net.ipv4.tcp_congestion_control | grep "bbrplus" | awk -F "=" '{print $2}' | awk '{$1=$1;print}')
+        isBBR2TcpEnabled=$(sysctl net.ipv4.tcp_congestion_control | grep "bbr2" | awk -F "=" '{print $2}' | awk '{$1=$1;print}')
+    fi
+
+    if [[ ${net_ecn} == "1" ]]; then
+        systemECNStatusText="已开启"      
+    elif [[ ${net_ecn} == "0" ]]; then
+        systemECNStatusText="已关闭"   
+    elif [[ ${net_ecn} == "2" ]]; then
+        systemECNStatusText="只对入站请求开启(默认值)"       
+    else
+        systemECNStatusText="" 
+    fi
+
+    if [[ ${net_congestion_control} == "bbr" ]]; then
+        
+        if [[ ${isBBRTcpEnabled} == *"bbr"* ]]; then
+            systemBBRRunningStatus="bbr"
+            systemBBRRunningStatusText="BBR 已启动成功"            
+        else 
+            systemBBRRunningStatusText="BBR 启动失败"
+        fi
+
+    elif [[ ${net_congestion_control} == "bbrplus" ]]; then
+
+        if [[ ${isBBRPlusTcpEnabled} == *"bbrplus"* ]]; then
+            systemBBRRunningStatus="bbrplus"
+            systemBBRRunningStatusText="BBR Plus 已启动成功"            
+        else 
+            systemBBRRunningStatusText="BBR Plus 启动失败"
+        fi
+
+    elif [[ ${net_congestion_control} == "bbr2" ]]; then
+
+        if [[ ${isBBR2TcpEnabled} == *"bbr2"* ]]; then
+            systemBBRRunningStatus="bbr2"
+            systemBBRRunningStatusText="BBR2 已启动成功"            
+        else 
+            systemBBRRunningStatusText="BBR2 启动失败"
+        fi
+                
+    else 
+        systemBBRRunningStatusText="未启动加速模块"
+    fi
+
+}
 
 
 
@@ -281,7 +355,7 @@ function start_menu(){
     if [[ $1 == "first" ]] ; then
         getLinuxOSRelease
     fi
-
+    showLinuxKernelInfoNoDisplay
 
     green " =================================================="
     green " 魔改自 jinwyp 大佬的 Linux 内核 一键安装脚本 | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
@@ -290,7 +364,7 @@ function start_menu(){
     red " *在任何生产环境中请谨慎使用此脚本, 升级内核有风险, 请做好备份！在某些VPS会导致无法启动! "
     green " =================================================="
      if [[ -z ${osKernelBBRStatus} ]]; then
-        echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Red_font_prefix}未安装 BBR 或 BBR Plus ${Font_color_suffix} 加速内核, 请先安装4.9以上内核 "
+        echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Red_font_prefix}未安装 BBR 或 BBR Plus ${Font_color_suffix} 加速内核 "
     else
         if [ ${systemBBRRunningStatus} = "no" ]; then
             echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Red_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
@@ -299,9 +373,6 @@ function start_menu(){
         fi
         
 		
-    fi  
-    echo -e " 当前拥塞控制算法: ${Green_font_prefix}${net_congestion_control}${Font_color_suffix}    ECN: ${Green_font_prefix}${systemECNStatusText}${Font_color_suffix}   当前队列算法: ${Green_font_prefix}${net_qdisc}${Font_color_suffix} "
-
     echo
     yellow " 检测本机 IPv4 " 
     echo  
