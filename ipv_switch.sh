@@ -26,10 +26,7 @@ yellow(){
 }
 blue(){
     echo -e "\033[34m\033[01m$1\033[0m"
-}
-bold(){
-    echo -e "\033[1m\033[01m$1\033[0m"
-}
+
 
 Green_font_prefix="\033[32m" 
 Red_font_prefix="\033[31m" 
@@ -38,22 +35,6 @@ Red_background_prefix="\033[41;37m"
 Font_color_suffix="\033[0m"
 
 
-
-osInfo=""
-osRelease=""
-osReleaseVersion=""
-osReleaseVersionNo=""
-osReleaseVersionCodeName="CodeName"
-osSystemPackage=""
-osSystemMdPath=""
-osSystemShell="bash"
-
-osKernelVersionFull=$(uname -r)
-osKernelVersionBackup=$(uname -r | awk -F "-" '{print $1}')
-osKernelVersionShort=$(uname -r | cut -d- -f1 | awk -F "." '{print $1"."$2}')
-osKernelBBRStatus=""
-systemBBRRunningStatus="no"
-systemBBRRunningStatusText=""
 
 
 function preferIPV4(){
@@ -127,7 +108,7 @@ function start_menu(){
     green " 魔改自 jinwyp 大佬的 Linux 内核 一键安装脚本 | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
     green " 原脚本详见 https://github.com/jinwyp/one_click_script"
     green " 本脚本旨在为你的vps服务器设置优先使用ipv4或ipv6访问网络 "
-    red " *在任何生产环境中请谨慎使用此脚本, 升级内核有风险, 请做好备份！在某些VPS会导致无法启动! "
+    red " *在任何生产环境中请谨慎使用此脚本, 如果设置不当，可能会导致你的vps无法连接网络! "
     green " =================================================="
     echo
     yellow " 检测本机 IPv4 或 IPv6 访问网络优先级测试, 命令: curl ip.p3terx.com " 
