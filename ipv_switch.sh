@@ -122,14 +122,15 @@ function preferIPV4(){
 
 function installWarp(){
     echo "将使用missuo的CloudflareWarp脚本，脚本地址详见https://github.com/missuo/CloudflareWarp"
-    bash <(wget -O warp.sh https://cdn.jsdelivr.net/gh/missuo/CloudflareWarp/warp.sh && bash warp.sh)
+    wget -N --no-check-certificate "https://raw.githubusercontent.com/missuo/CloudflareWarp/main/warp.sh" && chmod +x warp.sh && ./warp.sh
+   # bash <(wget -O warp.sh https://cdn.jsdelivr.net/gh/missuo/CloudflareWarp/warp.sh && bash warp.sh)
     # wget -O warp.sh https://cdn.jsdelivr.net/gh/missuo/CloudflareWarp/warp.sh && bash warp.sh
 }
 
 function updatekernel(){
     echo "如果你的内核没有升级至5.0以上，warp将安装失败，故建议先升级内核至5.0以上"
     echo "按1 选择安装BBR原本内核即可升级至最新内核"
-    bash <(wget -O tcp.sh "https://git.io/coolspeeda" && chmod +x tcp.sh && ./tcp.sh)
+    wget -N --no-check-certificate "https://raw.githubusercontent.com/ylx2016/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
 }
 
 
