@@ -27,9 +27,7 @@ yellow(){
 blue(){
     echo -e "\033[34m\033[01m$1\033[0m"
 }
-bold(){
-    echo -e "\033[1m\033[01m$1\033[0m"
-}
+
 
 Green_font_prefix="\033[32m" 
 Red_font_prefix="\033[31m" 
