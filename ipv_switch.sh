@@ -372,9 +372,9 @@ function installWarp(){
     green " ************************************************ "
     echo
     blue " 将使用missuo的Cloudflare Warp脚本进行安装，脚本地址详见https://github.com/missuo/CloudflareWarp"
-    blue " 仅建议只有ipv4或ipv6的vps使用此脚本增加另一地址，Warp安装成功后建议再次运行此脚本，"
-    blue " 选择4 永久开启，为Warp设置开机自启，以免设置ipv6分流后，重启vps时Warp未启动而导致无法访问部分ipv6网站等问题"
-    blue " 若出现重启后无法连接网络的情况，可尝试运行此脚本（bash warp.sh），选择 5 重新开启，启动Warp"
+    blue " 仅建议只有IPv4或IPv6的vps使用此脚本增加另一地址，Warp安装成功后建议再次运行此脚本，"
+    blue " 选择4 永久开启，为Warp设置开机自启，以免设置ipv6分流后，重启vps时Warp未启动而导致无法访问部分IPv6网站等问题"
+    blue " 若出现重启后无法连接网络的情况，可尝试再次运行此脚本（bash warp.sh），选择 5 重新开启，启动Warp"
     echo
     green " ************************************************ "
     sleep 4s
@@ -389,7 +389,7 @@ function updatekernel(){
     blue " 使用ylx2016的Linux-NetSpeed脚本进行安装，原脚本Github地址为https://github.com/ylx2016/Linux-NetSpeed"
     blue " 如果你的内核没有升级至5.0以上，则无法安装warp，故建议先升级内核至5.0以上"
     blue " 选1 安装BBR原本内核，即可升级至最新内核"
-    blue " 若安装Warp后仍无法检测出ipv6或安装失败，可尝试使用此脚本，开启ipv6"
+    blue " 若安装Warp后仍无法检测出IPv6或安装失败，可尝试使用此脚本，开启IPv6"
     echo
     green " ************************************************ "
     sleep 4s
@@ -408,7 +408,7 @@ function start_menu(){
     green " =================================================="
     echo " 魔改自 jinwyp 的 Linux 内核 一键安装脚本 | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
     echo " 原脚本详见 https://github.com/jinwyp/one_click_script "
-    echo " 本脚本主要功能是设置vps服务器优先使用ipv4或ipv6访问网络，另附带升级内核、安装Warp的功能 "
+    echo " 本脚本主要功能是设置vps服务器优先使用IPv4或IPv6访问网络，另附带升级内核、安装Warp的功能 "
     red " 在生产环境中请谨慎使用此脚本, 请提前做好备份；升级内核或更改网络设置可能会导致部分VPS无法启动或访问网络 "
     green " =================================================="
      if [[ -z ${osKernelBBRStatus} ]]; then
@@ -437,9 +437,9 @@ function start_menu(){
     echo
     green " ************************************************ "
     echo
-    echo -e " ${Green_font_prefix}1.${Font_color_suffix}  升级内核至5.0以上；开启ipv6"
-    echo -e " ${Green_font_prefix}2.${Font_color_suffix}  安装Cloudflare Warp。若vps仅有IPv4或IPv6地址，可安装Warp，增加另一IP，但内核须为5.0及以上"
-    echo -e " ${Green_font_prefix}3.${Font_color_suffix}  设置服务器为 IPv4 或 IPv6 网络优先访问"
+    echo -e " ${Green_font_prefix}1.${Font_color_suffix}  升级内核至5.0以上；开启IPv6"
+    echo -e " ${Green_font_prefix}2.${Font_color_suffix}  安装Cloudflare Warp. 若vps仅有IPv4或IPv6地址，可安装Warp，增加另一IP，但内核须为5.0及以上"
+    echo -e " ${Green_font_prefix}3.${Font_color_suffix}  设置服务器优先使用 IPv4 或 IPv6 访问网络"
     echo
     green " ************************************************ "
     echo -e " ${Green_font_prefix}0.${Font_color_suffix}  退出脚本"
