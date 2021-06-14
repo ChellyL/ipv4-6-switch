@@ -322,13 +322,14 @@ function preferIPV4(){
         green " ================================================== "
         yellow " 请为服务器设置 IPv4 还是 IPv6 优先访问: "
         echo
+	blue " 选择优先使用 IPv6 访问网络（选项2）,可能会出现无法访问某些不支持IPv6网站的情况"
+        blue " 若使用V2ray,可在V2ray配置中设置IPv6分流,以解锁Netflix限制和避免弹出Google人机验证"
+        blue " 由于trojan 或 trojan-go 无法配置IPv6分流, 使用这种协议者可尝试 开启优先IPv6访问"
+	yellow " 若取消操作，将执行选择3，恢复系统默认设置"
+	echo
         echo -e " ${Green_font_prefix}1.${Font_color_suffix} 优先 IPv4 访问网络 (用于 给只有 IPv6 的 VPS主机添加 IPv4 网络支持，请保证你的服务器具备IPv4地址)"
         echo -e " ${Green_font_prefix}2.${Font_color_suffix} 优先 IPv6 访问网络 (用于 解锁 Netflix 限制 和避免弹出 Google reCAPTCHA 人机验证，请保证你的服务器具备IPv4地址)"
-        echo -e " ${Green_font_prefix}3.${Font_color_suffix} 删除 IPv4 或 IPv6 优先访问的设置, 还原为系统默认配置"
-        echo
-        blue " 注意: 选择优先使用 IPv6 访问网络（选项2）,可能会出现无法访问某些不支持IPv6的网站的情况"
-        blue "      若使用V2ray，为解锁Netflix限制和避免弹出Google人机验证，可在V2ray配置中设置IPv6分流访问 "
-        blue "      由于 trojan 或 trojan-go 不支持配置IPv6分流, 可选择2 开启优先IPv6访问, 以便解锁Netfilx和避免Google人机验证"
+        echo -e " ${Green_font_prefix}3.${Font_color_suffix} 删除 IPv4 或 IPv6 优先访问的设置, 还原为系统默认配置，若取消操作将还原为系统默认设置"
         echo
         read -p "请选择 IPv4 还是 IPv6 优先访问? 直接回车默认选1, 请输入[1/2/3]:" isPreferIPv4Input
         isPreferIPv4Input=${isPreferIPv4Input:-1}
@@ -355,7 +356,7 @@ function preferIPV4(){
         green " ================================================== "
         echo
         yellow " 检测本机访问网络优先级" 
-		yellow " 如显示IPv4地址，则为 IPv4优先访问；如为IPv6地址，则为 IPv6优先访问"
+	yellow " 如显示IPv4地址，则为 IPv4优先访问；如为IPv6地址，则为 IPv6优先访问"
         echo  
         curl ip.p3terx.com
         echo
@@ -368,26 +369,30 @@ function preferIPV4(){
 
 
 function installWarp(){
-	green " ************************************************ "
-	echo
-    blue "将使用missuo的CloudflareWarp脚本进行安装，脚本地址详见https://github.com/missuo/CloudflareWarp"	
+    green " ************************************************ "
+    echo
+    blue " 将使用missuo的Cloudflare Warp脚本进行安装，脚本地址详见https://github.com/missuo/CloudflareWarp"
+    blue " 仅建议只有ipv4或ipv6的vps使用此脚本增加另一地址，Warp安装成功后建议再次运行此脚本，"
+    blue " 选择4 永久开启，为Warp设置开机自启，以免设置ipv6分流后，重启vps时Warp未启动而导致无法访问部分ipv6网站等问题"
+    blue " 若出现重启后无法连接网络的情况，可尝试运行此脚本（bash warp.sh），选择 5 重新开启，启动Warp"
     echo
     green " ************************************************ "
-	sleep 2s
+    sleep 4s
     echo
     wget -N --no-check-certificate "https://raw.githubusercontent.com/missuo/CloudflareWarp/main/warp.sh" && chmod +x warp.sh && ./warp.sh
 }
 
 
 function updatekernel(){
-	green " ************************************************ "
-	echo
-	blue " 此脚本为ylx2016的Linux-NetSpeed，Github地址为https://github.com/ylx2016/Linux-NetSpeed"
+    green " ************************************************ "
+    echo
+    blue " 使用ylx2016的Linux-NetSpeed脚本进行安装，原脚本Github地址为https://github.com/ylx2016/Linux-NetSpeed"
     blue " 如果你的内核没有升级至5.0以上，则无法安装warp，故建议先升级内核至5.0以上"
     blue " 选1 安装BBR原本内核，即可升级至最新内核"
-	echo
+    blue " 若安装Warp后仍无法检测出ipv6或安装失败，可尝试使用此脚本，开启ipv6"
+    echo
     green " ************************************************ "
-	sleep 2s
+    sleep 4s
     wget -O tcp.sh "https://git.io/coolspeeda" && chmod +x tcp.sh && ./tcp.sh
 }
 
@@ -401,18 +406,18 @@ function start_menu(){
     showLinuxKernelInfoNoDisplay
 
     green " =================================================="
-    echo " 魔改自 jinwyp 大佬的 Linux 内核 一键安装脚本 | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
+    echo " 魔改自 jinwyp 的 Linux 内核 一键安装脚本 | 系统支持：centos7+ / debian10+ / ubuntu16.04+"
     echo " 原脚本详见 https://github.com/jinwyp/one_click_script "
-    echo " 本脚本主要功能是设置vps服务器优先使用ipv4或ipv6访问网络 "
-    red " *在生产环境中请谨慎使用此脚本, 请提前做好备份；升级内核或更改网络设置可能会导致部分VPS无法启动或访问网络* "
+    echo " 本脚本主要功能是设置vps服务器优先使用ipv4或ipv6访问网络，另附带升级内核、安装Warp的功能 "
+    red " 在生产环境中请谨慎使用此脚本, 请提前做好备份；升级内核或更改网络设置可能会导致部分VPS无法启动或访问网络 "
     green " =================================================="
      if [[ -z ${osKernelBBRStatus} ]]; then
-        echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Red_font_prefix}未安装 BBR 或 BBR Plus ${Font_color_suffix} 加速内核 "
+        echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Red_font_prefix}未安装 ${Font_color_suffix} BBR 或 BBR Plus 加速内核 "
     else
         if [ ${systemBBRRunningStatus} = "no" ]; then
-            echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Red_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
+            echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${Font_color_suffix} ${osKernelBBRStatus} 加速内核, ${Red_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
         else
-            echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${osKernelBBRStatus}${Font_color_suffix} 加速内核, ${Green_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
+            echo -e " 当前系统内核: ${osKernelVersionBackup} (${virtual})   ${Green_font_prefix}已安装 ${Font_color_suffix} ${osKernelBBRStatus} 加速内核, ${Green_font_prefix}${systemBBRRunningStatusText}${Font_color_suffix} "
         fi
         
 	fi
@@ -422,18 +427,18 @@ function start_menu(){
     echo
     yellow " 本机 IPv4 地址："
     curl ipv4.ip.sb
-	echo
+    echo
     yellow " 本机 IPv6 地址："
     curl ipv6.ip.sb
-	echo
+    echo
     yellow " 检测本机 IPv4 或 IPv6 访问网络优先级："
-	yellow " 如显示IPv4地址，则为 IPv4优先访问；如为IPv6地址，则为 IPv6优先访问"
+    yellow " 如显示IPv4地址，则为 IPv4优先访问；如为IPv6地址，则为 IPv6优先访问"
     curl ip.p3terx.com
     echo
-	green " ************************************************ "
+    green " ************************************************ "
     echo
-    echo -e " ${Green_font_prefix}1.${Font_color_suffix}  升级内核至5.0以上"
-    echo -e " ${Green_font_prefix}2.${Font_color_suffix}  若仅有IPv4或IPv6地址，可安装warp，增加另一IP，内核须为5.0及以上"
+    echo -e " ${Green_font_prefix}1.${Font_color_suffix}  升级内核至5.0以上；开启ipv6"
+    echo -e " ${Green_font_prefix}2.${Font_color_suffix}  安装Cloudflare Warp。若vps仅有IPv4或IPv6地址，可安装Warp，增加另一IP，但内核须为5.0及以上"
     echo -e " ${Green_font_prefix}3.${Font_color_suffix}  设置服务器为 IPv4 或 IPv6 网络优先访问"
     echo
     green " ************************************************ "
