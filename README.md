@@ -1,5 +1,5 @@
 # IPv4/6 Switch
-设置vps服务器优先使用IPV4或IPv6访问网络的脚本
+设置VPS服务器优先使用IPv4或IPv6访问网络的脚本
 
 ## 简介
 本脚本魔改自 [jinwyp(JinWYP)](https://github.com/jinwyp) 的 [one_click_script](https://github.com/jinwyp/one_click_script) 一键安装内核的脚本
