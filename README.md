@@ -63,4 +63,5 @@ missuo(Vincent Young)及其脚本Cloudflare Warp https://github.com/missuo/Cloud
 
 ylx2016(dr)及其脚本Linux-NetSpeed https://github.com/ylx2016/Linux-NetSpeed
 
-
+## 界面截图
+![截图](https://github.com/ChellyL/ipv4-6-switch/blob/main/screenshot.png)
