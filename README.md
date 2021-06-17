@@ -4,7 +4,9 @@
 ## 简介
 本脚本魔改自 [jinwyp(JinWYP)](https://github.com/jinwyp) 的 [one_click_script](https://github.com/jinwyp/one_click_script) 一键安装内核的脚本
 
-主要作用是为你的vps服务器设置优先使用IPv6或IPvv4访问网络
+主要作用是为你的vps服务器设置优先使用IPv6或IPv4访问网络
+
+（设置这个是为了使用IPv6访问油管、Netflix之类的，V2ray、Xray可以在路由里设置分流，而我主要用trojan，似乎没法这样设置，所以只能从服务器下手……）
 
 脚本运行后将会检测你的vps服务的IPv4和IPv6地址，并检测你的vps优先使用哪个地址访问网络
 
