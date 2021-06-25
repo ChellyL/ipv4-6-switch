@@ -6,7 +6,7 @@
 
 主要作用是为你的vps服务器设置优先使用IPv6或IPv4访问网络
 
-（设置这个是为了使用IPv6访问油管、Netflix之类的，V2ray、Xray可以在路由里设置分流，而我主要用trojan，似乎没法这样设置，所以只能从服务器下手……）
+（设置这个是为了使用IPv6访问油管、Netflix之类的，V2ray、Xray可以在路由里设置分流，不过服务器上设置好比较方便嘛。实测对trojan不起作用，或许xray core的trojan可行，等我哪天试了再更新）
 
 脚本运行后将会检测你的vps服务的IPv4和IPv6地址，并检测你的vps优先使用哪个地址访问网络
 
@@ -38,14 +38,18 @@ wget -O ipv_switch.sh https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/ma
 ```
 bash ipv_switch.sh
 ```
-
+如果只想查看本机的ip地址或查看IPv4/6的网络访问优先级，可用：
+```
+wget -O 46test.sh https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh && bash 46test.sh
+```
+运行一次后，再次测试使用```bash 46test.sh```即可
 若想在运行 Cloudflare Warp 或 Linux-NetSpeed 后再次运行脚本，除了使用 bash ipv_switch.sh 之外，也可单独运行这两个脚本（如网络访问出现问题时）：
 
-Cloudflare Warp
+Cloudflare Warp:
 ```
 warp.sh
 ```
-Linux-NetSpeed
+Linux-NetSpeed:
 ```
 tcp.sh
 ```
