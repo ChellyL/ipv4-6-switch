@@ -42,7 +42,8 @@ bash ipv_switch.sh
 ```
 wget -O 46test.sh https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh && bash 46test.sh
 ```
-运行一次后，再次测试使用```bash 46test.sh```即可
+运行一次后，想再次测试使用```bash 46test.sh```即可
+
 若想在运行 Cloudflare Warp 或 Linux-NetSpeed 后再次运行脚本，除了使用 bash ipv_switch.sh 之外，也可单独运行这两个脚本（如网络访问出现问题时）：
 
 Cloudflare Warp:
