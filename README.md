@@ -48,11 +48,11 @@ wget -O 46test.sh https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/4
 
 Cloudflare Warp:
 ```
-warp.sh
+bash warp.sh
 ```
 Linux-NetSpeed:
 ```
-tcp.sh
+bash tcp.sh
 ```
 ## 注意事项
 安装时有相关选项说明作为参考，建议选择前先看说明，脚本运行之初会自动检测你的ip地址及系统内核等情况
