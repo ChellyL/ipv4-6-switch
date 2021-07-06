@@ -6,8 +6,6 @@
 
 主要作用是为你的vps服务器设置优先使用IPv6或IPv4访问网络
 
-（设置这个是为了使用IPv6访问油管、Netflix之类的，V2ray、Xray可以在路由里设置分流，不过服务器上设置好比较方便嘛。使用xray内核的trojan仍需要额外设置IPv6分流）
-
 脚本运行后将会检测你的vps服务的IPv4和IPv6地址，并检测你的vps优先使用哪个地址访问网络
 
 由于部分vps仅有IPv4或IPv6地址，因此也附带了[missuo(Vincent Young)](https://github.com/missuo)的[Cloudflare Warp](https://github.com/missuo/CloudflareWarp)脚本及[ylx2016(dr)](https://github.com/ylx2016)的[Linux-NetSpeed](https://github.com/ylx2016/Linux-NetSpeed)脚本
