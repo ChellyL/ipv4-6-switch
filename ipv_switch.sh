@@ -426,10 +426,10 @@ function start_menu(){
 	green " ************************************************ "
     echo
     yellow " 本机 IPv4 地址："
-    curl ipv4.ip.sb
+    curl -4 ip.p3terx.com
     echo
     yellow " 本机 IPv6 地址："
-    curl ipv6.ip.sb
+    curl -6 ip.p3terx.com
     echo
     yellow " 检测本机 IPv4 或 IPv6 访问网络优先级："
     yellow " 如显示IPv4地址，则为 IPv4优先访问；如为IPv6地址，则为 IPv6优先访问"
