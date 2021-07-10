@@ -8,6 +8,12 @@
 
 脚本运行后将会检测你的vps服务的IPv4和IPv6地址，并检测你的vps优先使用哪个地址访问网络
 
+但实测没什么鬼用👻，要分流还是只能用xray/v2ray的分流功能
+
+所以就，只要拿来测一下IP和IP归属，可以看下你的IP的运营商和国家归属啥的
+
+IPv6优先只是图一乐
+
 由于部分vps仅有IPv4或IPv6地址，因此也附带了[missuo(Vincent Young)](https://github.com/missuo)的[Cloudflare Warp](https://github.com/missuo/CloudflareWarp)脚本及[ylx2016(dr)](https://github.com/ylx2016)的[Linux-NetSpeed](https://github.com/ylx2016/Linux-NetSpeed)脚本
 
 可使用这两个脚本将你的vps内核升级至5.0以上，并安装warp，为没有IPv4的IPv6 服务器增加 IPv4，或为没有IPv6的 IPv4 服务器增加IPv6
