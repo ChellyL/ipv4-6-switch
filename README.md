@@ -8,11 +8,13 @@
 
 脚本运行后将会检测你的vps服务的IPv4和IPv6地址，并检测你的vps优先使用哪个地址访问网络
 
-但实测没什么鬼用👻，要分流还是只能用xray/v2ray的分流功能
+~~但实测没什么鬼用👻~~
 
-所以就，只要拿来测一下IP和IP归属，可以看下你的IP的运营商和国家归属啥的
+其实是有用的！如果是装ss，可以用这个设置后，在ss的配置文件里加上`"ipv6_first":true`，如果有ipv6它就会优先走ipv6
 
-IPv6优先只是图一乐
+至于xray/v2ray，我觉得应该有类似的配置选项，不过用分流的更多吧，毕竟如果是用cf家的ipv6，那有点慢
+
+顺便测一下IP和IP归属，可以看下你的IP的运营商和国家归属啥的
 
 由于部分vps仅有IPv4或IPv6地址，因此也附带了[missuo(Vincent Young)](https://github.com/missuo)的[Cloudflare Warp](https://github.com/missuo/CloudflareWarp)脚本及[ylx2016(dr)](https://github.com/ylx2016)的[Linux-NetSpeed](https://github.com/ylx2016/Linux-NetSpeed)脚本
 
