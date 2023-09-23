@@ -397,6 +397,21 @@ function updatekernel(){
 }
 
 
+function mediacheck){
+    green " ************************************************ "
+    echo
+    blue " 使用 lmc999 的 RegionRestrictionCheck 脚本进行安装，原脚本Github地址为https://github.com/lmc999/RegionRestrictionCheck"
+    # blue " 如果你的内核没有升级至5.0以上，则无法安装warp，故建议先升级内核至5.0以上"
+    # blue " 选1 安装BBR原本内核，即可升级至最新内核"
+    # blue " 若安装Warp后仍无法检测出IPv6或安装失败，可尝试使用此脚本，开启IPv6"
+    echo
+    green " ************************************************ "
+    sleep 2s
+    apt install curl
+    bash <(curl -L -s check.unlock.media)
+}
+
+
 function start_menu(){
     clear
     
@@ -440,6 +455,7 @@ function start_menu(){
     echo -e " ${Green_font_prefix}1.${Font_color_suffix}  升级内核至5.0以上；开启IPv6"
     echo -e " ${Green_font_prefix}2.${Font_color_suffix}  安装Cloudflare Warp. 若vps仅有IPv4或IPv6地址，可安装Warp，增加另一IP，但内核须为5.0及以上"
     echo -e " ${Green_font_prefix}3.${Font_color_suffix}  设置服务器优先使用 IPv4 或 IPv6 访问网络"
+    echo -e " ${Green_font_prefix}4.${Font_color_suffix}  流媒体检测"
     echo
     green " ************************************************ "
     echo -e " ${Green_font_prefix}0.${Font_color_suffix}  退出脚本"
@@ -456,7 +472,9 @@ function start_menu(){
         3 )
            preferIPV4 "redo"
         ;;
-
+	4 )
+ 	   mediacheck
+	;;
         0 )
             exit 1
         ;;
