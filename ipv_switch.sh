@@ -397,7 +397,7 @@ function updatekernel(){
 }
 
 
-function mediacheck){
+function mediacheck(){
     green " ************************************************ "
     echo
     blue " 使用 lmc999 的 RegionRestrictionCheck 脚本进行安装，原脚本Github地址为https://github.com/lmc999/RegionRestrictionCheck"
