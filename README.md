@@ -26,11 +26,6 @@
 ## 使用
 在使用之前你可能需要安装wget以及curl：
 
-Cent OS：
-```
-yum -y install wget
-yum install curl
-```
 Debian / Ubuntu：
 ```
 apt -y install wget
@@ -39,12 +34,12 @@ apt install curl
 
 主要支持 Linux X86_64 系统，ARM构架慎用Warp功能
 ```
-bash (curl  -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
+bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
 ```
 
 如果只想查看本机的ip地址或查看IPv4/6的网络访问优先级，可用：
 ```
-bash ( curl  -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
+bash <(curl -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
 ```
 
 若想在运行 Cloudflare Warp 或 Linux-NetSpeed 后再次运行脚本，可单独运行这两个脚本（如网络访问出现问题时）：
