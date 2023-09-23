@@ -6,19 +6,20 @@
 
 主要作用是为你的vps服务器设置优先使用IPv6或IPv4访问网络
 
-脚本运行后将会检测你的vps服务的IPv4和IPv6地址，并检测你的vps优先使用哪个地址访问网络
+脚本运行后将会检测你的vps小鸡的IPv4和IPv6地址，并检测你的vps优先使用哪个地址访问网络
 
 ~~但实测没什么鬼用👻~~
 
-其实是有用的！如果是装ss，可以用这个设置后，在ss的配置文件里加上`"ipv6_first":true`，如果有ipv6它就会优先走ipv6
+主要目的是便于科学上网
 
-至于xray/v2ray，我觉得应该有类似的配置选项，不过用分流的更多吧，毕竟如果是用cf家的ipv6，那有点慢
+## 其他功能
 
-顺便测一下IP和IP归属，可以看下你的IP的运营商和国家归属啥的
-
-由于部分vps仅有IPv4或IPv6地址，因此也附带了[missuo(Vincent Young)](https://github.com/missuo)的[Cloudflare Warp](https://github.com/missuo/CloudflareWarp)脚本及[ylx2016(dr)](https://github.com/ylx2016)的[Linux-NetSpeed](https://github.com/ylx2016/Linux-NetSpeed)脚本
-
-可使用这两个脚本将你的vps内核升级至5.0以上，并安装warp，为没有IPv4的IPv6 服务器增加 IPv4，或为没有IPv6的 IPv4 服务器增加IPv6
+- 检测IP归属
+- 流媒体测试
+- 内核更新
+  - 便于安装warp 
+- 安装Warp（Debian内核必须高于5.0）
+  - 为没有IPv4的IPv6 服务器增加 IPv4，或为没有IPv6的 IPv4 服务器增加IPv6，以及其他功能
 
 通过IPv6访问Google或Netflix，可有效解决IP被Google标识后老是弹出人机验证（不能100%解决）及Netflix仅可看自制剧的问题
 
@@ -38,23 +39,19 @@ apt install curl
 
 主要支持 Linux X86_64 系统，ARM构架慎用Warp功能
 ```
-wget -O ipv_switch.sh https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh && bash ipv_switch.sh
+bash (curl  -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
 ```
-若需要再次使用本脚本，运行以下命令即可：
-```
-bash ipv_switch.sh
-```
+
 如果只想查看本机的ip地址或查看IPv4/6的网络访问优先级，可用：
 ```
-wget -O 46test.sh https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh && bash 46test.sh
+bash ( curl  -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
 ```
-运行一次后，想再次测试使用```bash 46test.sh```即可
 
-若想在运行 Cloudflare Warp 或 Linux-NetSpeed 后再次运行脚本，除了使用 bash ipv_switch.sh 之外，也可单独运行这两个脚本（如网络访问出现问题时）：
+若想在运行 Cloudflare Warp 或 Linux-NetSpeed 后再次运行脚本，可单独运行这两个脚本（如网络访问出现问题时）：
 
 Cloudflare Warp:
 ```
-bash warp.sh
+bash menu.sh
 ```
 Linux-NetSpeed:
 ```
@@ -69,12 +66,11 @@ bash tcp.sh
 
 由于安装Warp需内核为5.0及以上，故建议先升级内核再安装Warp。如果服务器默认没有开启IPv6，也可使用升级内核脚本开启IPv6
 
-## 参考&感谢
-jinwyp(JinWYP)及其脚本one_click_script https://github.com/jinwyp/one_click_script
-
-missuo(Vincent Young)及其脚本Cloudflare Warp https://github.com/missuo/CloudflareWarp
-
-ylx2016(dr)及其脚本Linux-NetSpeed https://github.com/ylx2016/Linux-NetSpeed
+## 参考
+- https://github.com/jinwyp/one_click_script
+- https://github.com/ylx2016/Linux-NetSpeed
+- https://github.com/lmc999/RegionRestrictionCheck
+- https://gitlab.com/fscarmen/warp
 
 ## 界面截图
 ![截图](https://github.com/ChellyL/ipv4-6-switch/blob/main/screenshot.png)
