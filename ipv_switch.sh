@@ -132,7 +132,7 @@ function getLinuxOSRelease(){
 
     [[ -z $(echo $SHELL|grep zsh) ]] && osSystemShell="bash" || osSystemShell="zsh"
 
-    echo "OS info: ${osInfo}, ${osRelease}, ${osReleaseVersion}, ${osReleaseVersionNo}, ${osReleaseVersionCodeName}, ${osSystemShell}, ${osSystemPackage}, ${osSystemMdPath}"
+    red "OS info: ${osInfo}, ${osRelease}, ${osReleaseVersion}, ${osReleaseVersionNo}, ${osReleaseVersionCodeName}, ${osSystemShell}, ${osSystemPackage}, ${osSystemMdPath}"
 }
 
 
@@ -371,15 +371,15 @@ function preferIPV4(){
 function installWarp(){
     green " ************************************************ "
     echo
-    blue " 将使用missuo的Cloudflare Warp脚本进行安装，脚本地址详见https://github.com/missuo/CloudflareWarp"
-    blue " 仅建议只有IPv4或IPv6的vps使用此脚本增加另一地址，Warp安装成功后建议再次运行此脚本，"
-    blue " 选择4 永久开启，为Warp设置开机自启，以免设置ipv6分流后，重启vps时Warp未启动而导致无法访问部分IPv6网站等问题"
-    blue " 若出现重启后无法连接网络的情况，可尝试再次运行此脚本（bash warp.sh），选择 5 重新开启，启动Warp"
+    blue " 将使用fscarmen的Cloudflare Warp脚本进行安装，脚本详细使用方法见https://gitlab.com/fscarmen/warp"
+    # blue " 仅建议只有IPv4或IPv6的vps使用此脚本增加另一地址，Warp安装成功后建议再次运行此脚本，"
+    # blue " 选择4 永久开启，为Warp设置开机自启，以免设置ipv6分流后，重启vps时Warp未启动而导致无法访问部分IPv6网站等问题"
+    blue " 若想再次运行此脚本，请输入 bash menu.sh"
     echo
     green " ************************************************ "
     sleep 4s
     echo
-    wget -N --no-check-certificate "https://raw.githubusercontent.com/missuo/CloudflareWarp/main/warp.sh" && chmod +x warp.sh && ./warp.sh
+    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
 }
 
 
