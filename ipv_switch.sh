@@ -442,9 +442,13 @@ function start_menu(){
     echo
     yellow " 本机 IPv4 地址："
     curl -4 ip.p3terx.com
+    local_isp4=$(curl $useNIC -s -4 --max-time 10 --user-agent "${UA_Browser}" "https://api.ip.sb/geoip/${local_ipv4}" | grep organization | cut -f4 -d '"')
+    yellow -e " 您的网络为: ${local_isp4}"
     echo
     yellow " 本机 IPv6 地址："
     curl -6 ip.p3terx.com
+    local_isp6=$(curl $useNIC -s -6 --max-time 10 --user-agent "${UA_Browser}" "https://api.ip.sb/geoip/${local_ipv6}" | grep organization | cut -f4 -d '"')
+    yellow -e " 您的网络为: ${local_isp6} "
     echo
     yellow " 检测本机 IPv4 或 IPv6 访问网络优先级："
     yellow " 如显示IPv4地址，则为 IPv4优先访问；如为IPv6地址，则为 IPv6优先访问"
